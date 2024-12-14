@@ -37,7 +37,7 @@
                 <td>${product.category.name}</td>
                 <td><a href="?action=edit&id=${product.id}" class="btn btn-primary">
                     <i class="fas fa-edit"></i> Chỉnh sửa</a></td>
-                <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="${p.id}" data-name="${p.name}">
+                <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="${product.id}" data-name="${product.name}">
                     <i class="fas fa-trash-alt"></i> Xóa
                 </button></td>
             </tr>
@@ -67,5 +67,23 @@
 </div>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var productId = button.getAttribute('data-id');
+        var productName = button.getAttribute('data-name');
+
+        var modalBody = deleteModal.querySelector('.modal-body #productName');
+        modalBody.textContent = productName;
+
+        var confirmDeleteLink = deleteModal.querySelector('.modal-footer #confirmDelete');
+        confirmDeleteLink.setAttribute('href', '?action=delete&id=' + productId);
+    });
+
+</script>
 </body>
 </html>

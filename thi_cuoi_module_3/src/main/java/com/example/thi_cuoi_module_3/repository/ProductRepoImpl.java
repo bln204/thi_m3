@@ -20,6 +20,7 @@ public class ProductRepoImpl implements IProductRepo{
     }
 
     private static final String FIND_ALL = "CALL GetAllProduct()";
+    private static final String FIND_BY_ID ="CALL GetProductById(?)";
     @Override
     public List<Product> findAll() {
         Connection connection = baseRepository.getConnection();
@@ -62,7 +63,7 @@ public class ProductRepoImpl implements IProductRepo{
         Connection connection = baseRepository.getConnection();
         Product product = null;
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM products WHERE product_id =?");
+            PreparedStatement statement = connection.prepareStatement(FIND_BY_ID);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
